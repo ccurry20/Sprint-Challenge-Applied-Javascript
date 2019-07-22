@@ -15,8 +15,8 @@ function tabCreator(topic) {
     div.classList.add('tab');
     div.textContent = topic.topics;
 
-    let tabs = document.querySelector(".topics");
-    tabs.appendChild(div);
+    //let tabs = document.querySelector(".topics");
+    //tabs.appendChild(div);
 
     return tabs; 
 }
@@ -27,14 +27,18 @@ function tabCreator(topic) {
 //     topicEl.appendChild(final);
 // })
 
-
+let tabs = document.querySelector(".topics");
 axios.get('https://lambda-times-backend.herokuapp.com/topics')
-.then((axiosData) => {
-  console.log('axiosData.data: ', axiosData.data);
-  tabCreator(axiosData.data)
+.then(data => {
+  data.data.topics.forEach(item => {
+    const newTopic = tabCreator(item);
+    tabs.appendChild(newTopic);  
+  })
 })
-.catch((err) => {
+  //console.log('topics.data: ', data.data);
+  //tabCreator(data.data);
+
+.catch(err => {
   console.log('error: ', err);
 })
 
-//console.log(tabCreator(topic))

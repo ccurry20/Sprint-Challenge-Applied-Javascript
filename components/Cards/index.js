@@ -51,8 +51,7 @@ function cardCreator(article) {
 }
 
 axios.get('https://lambda-times-backend.herokuapp.com/articles')
-.then((axiosData) => {
-    //for (var i = 0; i < axiosData.length; i++){
+.then(axiosData => {
   console.log('axiosData.data: ', axiosData.data);
   cardCreator(axiosData.data);
     //}
@@ -60,3 +59,13 @@ axios.get('https://lambda-times-backend.herokuapp.com/articles')
 .catch((err) => {
   console.log('error: ', err);
 })
+
+
+// let tabs = document.querySelector(".topics");
+// axios.get('https://lambda-times-backend.herokuapp.com/topics')
+// .then(data => {
+//   data.data.topics.forEach(item => {
+//     const newTopic = tabCreator(item);
+//     tabs.appendChild(newTopic);  
+//   })
+// })
