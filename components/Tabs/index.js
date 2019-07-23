@@ -8,37 +8,45 @@
 //  The tab component should look like this:
 //    <div class="tab">topic here</div>
 
-
-
 function tabCreator(topic) {
-    const div = document.createElement('div');
-    div.classList.add('tab');
-    div.textContent = topic.topics;
-
-    //let tabs = document.querySelector(".topics");
-    //tabs.appendChild(div);
-
-    return tabs; 
+  const div = document.createElement("div");
+  div.classList.add("tab");
+  div.textContent = topic;
+  return div;
 }
 
-// const final = axiosData.map(div => tabCreator(div));
-// const [topicEl] = document.querySelector (".topics");
-// final.forEach(div => {
-//     topicEl.appendChild(final);
-// })
+//let tabs = document.querySelector(".topics");
+axios
+  .get("https://lambda-times-backend.herokuapp.com/topics")
+  .then(data => {
+    console.log("data.data: ", data.data);
 
-let tabs = document.querySelector(".topics");
-axios.get('https://lambda-times-backend.herokuapp.com/topics')
-.then(data => {
-  data.data.topics.forEach(item => {
-    const newTopic = tabCreator(item);
-    tabs.appendChild(newTopic);  
+    //   data.data.topics.forEach(item => {
+    //     const newTopic = tabCreator(item);
+    //     let tabs = document.querySelector(".topics");
+    //     tabs.appendChild(newTopic);
+    //   });
+    // })
+
+    //   const final = data.data.topics;
+    //   for (var i = 0; i > final.length; i++) {
+    //     const newTopic = tabCreator(item);
+    //     let tabs = document.querySelector(".topics");
+    //     tabs.appendChild(newTopic);
+    //     //const t = data.data.topics[i].map(item => tabCreator(item));
+    //     //t[i].forEach(item => {
+    //     // tabs.appendChild(item);
+    //     // });
+    //   }
+    // })
+
+    const t = data.data.topics.map(item => tabCreator(item));
+    let tabs = document.querySelector(".topics");
+    t.forEach(item => {
+      tabs.appendChild(item);
+    });
   })
-})
-  //console.log('topics.data: ', data.data);
-  //tabCreator(data.data);
 
-.catch(err => {
-  console.log('error: ', err);
-})
-
+  .catch(err => {
+    console.log("error: ", err);
+  });

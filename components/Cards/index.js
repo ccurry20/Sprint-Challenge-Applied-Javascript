@@ -19,53 +19,47 @@
 // Create a card for each of the articles and add the card to the DOM.
 
 function cardCreator(article) {
-    const div = document.createElement('div');
-    div.classList.add('card');
+  const div = document.createElement("div");
+  div.classList.add("card");
 
-    const div2 = document.createElement('div');
-    div2.classList.add('headline');
-    div2.textContent = article.headline; 
-    div.appendChild(div2);
+  const div2 = document.createElement("div");
+  div2.classList.add("headline");
+  div2.textContent = article.headline;
+  div.appendChild(div2);
 
-    const div3 = document.createElement('div');
-    div3.classList.add('author');
-    div.appendChild(div3);
+  const div3 = document.createElement("div");
+  div3.classList.add("author");
+  div.appendChild(div3);
 
-    const div4 = document.createElement('div');
-    div4.classList.add('img-container');
-    div.appendChild(div4);
+  const div4 = document.createElement("div");
+  div4.classList.add("img-container");
+  div.appendChild(div4);
 
-    const image = document.createElement('img');
-    image.src = article.authorPhoto; 
-    //image.src = "./assets/sir.jpg";
-    div.appendChild(image);
+  const image = document.createElement("img");
+  image.src = article.authorPhoto;
 
-    const span = document.createElement('span');
-    span.textContent = (`By ${article.authorName}`);
-    div.appendChild(span);
+  div.appendChild(image);
 
-    let cards = document.querySelector(".cards-container");
-    cards.appendChild(div);
+  const span = document.createElement("span");
+  span.textContent = `By ${article.authorName}`;
+  div.appendChild(span);
 
-    return cards; 
+  return div;
 }
 
-axios.get('https://lambda-times-backend.herokuapp.com/articles')
-.then(axiosData => {
-  console.log('axiosData.data: ', axiosData.data);
-  cardCreator(axiosData.data);
-    //}
-})
-.catch((err) => {
-  console.log('error: ', err);
-})
+let cards = document.querySelector(".cards-container");
+axios
+  .get("https://lambda-times-backend.herokuapp.com/articles")
+  .then(axiosData => {
+    console.log("axiosData.data: ", axiosData.data);
+    for (n in axiosData.data.articles) {
+      axiosData.data.articles[n].forEach(item => {
+        const newCard = cardCreator(item);
 
-
-// let tabs = document.querySelector(".topics");
-// axios.get('https://lambda-times-backend.herokuapp.com/topics')
-// .then(data => {
-//   data.data.topics.forEach(item => {
-//     const newTopic = tabCreator(item);
-//     tabs.appendChild(newTopic);  
-//   })
-// })
+        cards.appendChild(newCard);
+      });
+    }
+  })
+  .catch(err => {
+    console.log("error: ", err);
+  });
