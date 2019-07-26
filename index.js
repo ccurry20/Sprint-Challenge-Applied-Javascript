@@ -29,20 +29,20 @@ function cardCreator(article) {
 
   const div3 = document.createElement("div");
   div3.classList.add("author");
-  div.appendChild(div3);
+  div2.appendChild(div3);
 
   const div4 = document.createElement("div");
   div4.classList.add("img-container");
-  div.appendChild(div4);
+  div3.appendChild(div4);
 
   const image = document.createElement("img");
   image.src = article.authorPhoto;
 
-  div.appendChild(image);
+  div4.appendChild(image);
 
   const span = document.createElement("span");
   span.textContent = `By ${article.authorName}`;
-  div.appendChild(span);
+  div3.appendChild(span);
 
   return div;
 }
